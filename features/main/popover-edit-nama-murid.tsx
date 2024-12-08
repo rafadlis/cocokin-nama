@@ -37,7 +37,9 @@ export function PopoverEditNamaMurid({
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="link" onClick={() => debouncedSearch("")}>
-          {namaMurid ?? "Klik untuk edit nama"}
+          {namaMurid ?? (
+            <span className="text-muted-foreground">Klik untuk edit nama</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="flex flex-col gap-2">
