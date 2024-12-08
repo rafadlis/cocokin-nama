@@ -32,19 +32,10 @@ export type DaftarNamaMuridType = Awaited<
 
 export async function getDaftarNamaLain() {
   const db = await serverConnection();
-  const students = await db.query.DaftarNamaMuridTable.findMany({
-    columns: {
-      id: true,
-      name: true,
-      nama_lain_id: true,
-    },
+  const students = await db.query.NamaLainTable.findMany({
     with: {
-      NamaLainTable: {
-        columns: {
-          nama_lain: true,
-          kelas: true,
-        },
-      },
+      nilai: true,
+      daftar_nama_murid: true,
     },
   });
   return students;

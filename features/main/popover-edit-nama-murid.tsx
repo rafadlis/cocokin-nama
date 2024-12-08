@@ -26,10 +26,12 @@ export function PopoverEditNamaMurid({
     router.push(`?search=${value}`);
   }, 300);
   async function updateNamaLainMuridAction(
-    namaLainId: number,
-    muridId: number
+    muridId: number,
+    namaLainId: number
   ) {
-    await updateNamaLainMurid(namaLainId, muridId);
+    await updateNamaLainMurid(muridId, namaLainId).then(() => {
+      router.refresh();
+    });
   }
   return (
     <Popover>
@@ -47,7 +49,7 @@ export function PopoverEditNamaMurid({
           {muridList.map((murid) => (
             <form
               key={murid.id}
-              action={() => updateNamaLainMuridAction(namaLainId, murid.id)}
+              action={() => updateNamaLainMuridAction(murid.id, namaLainId)}
               className="w-full"
             >
               <Button

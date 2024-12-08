@@ -18,13 +18,13 @@ export async function MainTableBodyComponent({
     <TableBody>
       {data.map((namaLain, index) => (
         <TableRow key={namaLain.id + namaLain.kelas + index}>
-          <TableCell>{namaLain.NamaLainTable.nama_lain}</TableCell>
-          <TableCell>{namaLain.NamaLainTable.kelas}</TableCell>
+          <TableCell>{namaLain.nama_lain}</TableCell>
+          <TableCell>{namaLain.kelas}</TableCell>
           <TableCell>
             <PopoverEditNamaMurid
               muridList={muridList}
               namaLainId={namaLain.id}
-              namaMurid={namaLain.name}
+              namaMurid={namaLain.daftar_nama_murid?.name || null}
             />
           </TableCell>
         </TableRow>
