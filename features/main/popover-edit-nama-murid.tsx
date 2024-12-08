@@ -23,7 +23,7 @@ export function PopoverEditNamaMurid({
 }) {
   const router = useRouter();
   const debouncedSearch = useDebouncedCallback((value: string) => {
-    router.push(`?search=${value}`);
+    router.push(`?search=${value}`, { scroll: false });
   }, 300);
   async function updateNamaLainMuridAction(
     muridId: number,
