@@ -5,3 +5,4 @@
 - use postgres as the database
 - use tailwind css for styling
 - use shadcn/ui for the components
+- use SWR for the data fetching in client component

@@ -1,7 +1,10 @@
+import MainTable from "../features/main/table";
+import { Input } from "@/components/ui/input";
 export default function Home() {
   return (
-    <div>
-      <div>test</div>
-    </div>
+    <article>
+      <Input placeholder="Cari murid" />
+      <MainTable />
+    </article>
   );
 }
