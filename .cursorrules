@@ -1,0 +1,7 @@
+- this project is about `Pencocokan Nama`
+- Always use and see `./docs` for documentation as core of the project
+- this project is a Nextjs 15 Project using the app router
+- use drizzle for the database
+- use postgres as the database
+- use tailwind css for styling
+- use shadcn/ui for the components
