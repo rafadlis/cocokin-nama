@@ -1,54 +1,34 @@
-"use client";
-
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-
-import useSWR from "swr";
 import { getDaftarNamaLain } from "./get-data";
-import EditPopover from "./table-edit-popover";
-import { Skeleton } from "@/components/ui/skeleton";
+import { PopoverEditNamaMurid } from "./popover-edit-nama-murid";
+import { getDaftarNamaMuridBySearch } from "./get-data";
+import { SearchParams } from "@/app/page";
+import { connection } from "next/server";
+export async function MainTableBodyComponent({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  await connection();
 
-export default function MainTableBodyComponent() {
-  const { data, error, isLoading } = useSWR(
-    "/api/daftar-nama-murid",
-    getDaftarNamaLain,
-    {
-      refreshInterval: 1000,
-    }
-  );
-  if (error) {
-    return (
-      <TableRow>
-        <TableCell>Error</TableCell>
-      </TableRow>
-    );
-  }
-  if (isLoading) {
-    return (
-      <TableRow>
-        <TableCell>
-          <Skeleton className="h-4 w-full" />
-        </TableCell>
-        <TableCell>
-          <Skeleton className="h-4 w-full" />
-        </TableCell>
-        <TableCell>
-          <Skeleton className="h-4 w-full" />
-        </TableCell>
-      </TableRow>
-    );
-  }
+  const data = await getDaftarNamaLain();
+  const params = await searchParams;
+  const muridList = await getDaftarNamaMuridBySearch(params.search);
   return (
     <TableBody>
-      {data &&
-        data?.map((namaLain) => (
-          <TableRow key={namaLain.id}>
-            <TableCell>{namaLain.nama_lain}</TableCell>
-            <TableCell>{namaLain.kelas}</TableCell>
-            <TableCell>
-              <EditPopover namaLainId={namaLain.id} />
-            </TableCell>
-          </TableRow>
-        ))}
+      {data.map((namaLain, index) => (
+        <TableRow key={namaLain.id + namaLain.kelas + index}>
+          <TableCell>{namaLain.NamaLainTable.nama_lain}</TableCell>
+          <TableCell>{namaLain.NamaLainTable.kelas}</TableCell>
+          <TableCell>
+            <PopoverEditNamaMurid
+              muridList={muridList}
+              namaLainId={namaLain.id}
+              namaMurid={namaLain.name}
+            />
+          </TableCell>
+        </TableRow>
+      ))}
     </TableBody>
   );
 }
