@@ -31,10 +31,7 @@ export const NamaLainTableRelations = relations(NamaLainTable, ({ one }) => ({
     fields: [NamaLainTable.id],
     references: [NilaiTable.nama_lain_id],
   }),
-  daftar_nama_murid: one(DaftarNamaMuridTable, {
-    fields: [NamaLainTable.id],
-    references: [DaftarNamaMuridTable.nama_lain_id],
-  }),
+  daftar_nama_murid: one(DaftarNamaMuridTable),
 }));
 
 export const NilaiTableRelations = relations(NilaiTable, ({ one }) => ({
