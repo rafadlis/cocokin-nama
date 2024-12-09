@@ -24,7 +24,7 @@ export default async function Home({
             <TableRow>
               <TableHead>Nama Lain</TableHead>
               <TableHead>Kelas</TableHead>
-              <TableHead>Aksi</TableHead>
+              <TableHead>Nama Asli Murid</TableHead>
             </TableRow>
           </TableHeader>
           <Suspense fallback={<TableBodySkeleton />}>
