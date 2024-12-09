@@ -40,7 +40,7 @@ export function PopoverEditNamaMurid({
     toast.promise(updateNamaLainMurid(muridId, namaLainId), {
       loading: "Mengubah nama murid...",
       success: () => {
-        router.push(`?${q ? `q=${q}&` : ""}search=`, { scroll: false });
+        router.push(`?${q ? `q=${q}&` : ""}`, { scroll: false });
         router.refresh();
         setOpen(false);
         return "Nama murid berhasil diubah";
@@ -48,16 +48,6 @@ export function PopoverEditNamaMurid({
       error: "Nama murid gagal diubah",
     });
   }
-
-  //   const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Sonner' }), 2000));
-
-  // toast.promise(promise, {
-  //   loading: 'Loading...',
-  //   success: (data) => {
-  //     return `${data.name} toast has been added`;
-  //   },
-  //   error: 'Error',
-  // });
 
   const [open, setOpen] = useState(false);
   return (
