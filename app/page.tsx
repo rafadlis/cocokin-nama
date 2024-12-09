@@ -1,5 +1,4 @@
 import { Table, TableHeader, TableRow, TableHead } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
 import { MainTableBodyComponent } from "@/features/main/table-body";
 import { Suspense } from "react";
 import { TableBodySkeleton } from "@/components/table-skeleteon";
