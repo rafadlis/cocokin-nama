@@ -41,9 +41,26 @@ export async function getDaftarNamaLain() {
   return students;
 }
 
+export async function getDaftarNamaLainBySearch(
+  search: string | undefined | null
+) {
+  const db = await serverConnection();
+  if (!search) return getDaftarNamaLain();
+  const students = await db.query.NamaLainTable.findMany({
+    where: ilike(NamaLainTable.nama_lain, `%${search}%`),
+    with: {
+      nilai: true,
+      daftar_nama_murid: true,
+    },
+  });
+  return students;
+}
+
 export type DaftarNamaLainType = Awaited<ReturnType<typeof getDaftarNamaLain>>;
 
-export async function getDaftarNamaMuridBySearch(search: string | undefined) {
+export async function getDaftarNamaMuridBySearch(
+  search: string | undefined | null
+) {
   "use cache";
   cacheTag(search + "query");
   cacheLife("minutes");

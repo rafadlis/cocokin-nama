@@ -3,9 +3,11 @@ import { Input } from "@/components/ui/input";
 import { MainTableBodyComponent } from "@/features/main/table-body";
 import { Suspense } from "react";
 import { TableBodySkeleton } from "@/components/table-skeleteon";
+import { SearchNamaLainComponent } from "@/features/main/search-nama-lain";
 
 export type SearchParams = Promise<{
-  search?: string;
+  search?: string | null | undefined;
+  q?: string | null | undefined;
 }>;
 
 export default async function Home({
@@ -16,9 +18,7 @@ export default async function Home({
   return (
     <main className="container mx-auto py-10 space-y-4">
       <h1 className="text-2xl font-bold">Pencocokan Nama</h1>
-      <div className="w-full max-w-sm">
-        <Input placeholder="Cari murid..." className="w-full" />
-      </div>
+      <SearchNamaLainComponent />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

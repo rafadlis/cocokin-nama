@@ -1,5 +1,5 @@
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { getDaftarNamaLain } from "./get-data";
+import { getDaftarNamaLain, getDaftarNamaLainBySearch } from "./get-data";
 import { PopoverEditNamaMurid } from "./popover-edit-nama-murid";
 import { getDaftarNamaMuridBySearch } from "./get-data";
 import { SearchParams } from "@/app/page";
@@ -11,8 +11,8 @@ export async function MainTableBodyComponent({
 }) {
   await connection();
 
-  const data = await getDaftarNamaLain();
   const params = await searchParams;
+  const data = await getDaftarNamaLainBySearch(params.q);
   const muridList = await getDaftarNamaMuridBySearch(params.search);
   return (
     <TableBody>

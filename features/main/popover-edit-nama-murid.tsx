@@ -9,9 +9,12 @@ import { Button } from "@/components/ui/button";
 import { DaftarNamaMuridTable } from "@/lib/drizzle/schema";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { updateNamaLainMurid } from "./edit-data";
+import { toast } from "sonner";
+import { useState } from "react";
+
 export function PopoverEditNamaMurid({
   muridList,
   namaLainId,
@@ -21,28 +24,44 @@ export function PopoverEditNamaMurid({
   namaLainId: number;
   namaMurid: string | null | undefined;
 }) {
+  // get existing search params
+  const searchParams = useSearchParams();
+  const q = searchParams.get("q");
+
   const router = useRouter();
   const debouncedSearch = useDebouncedCallback((value: string) => {
-    router.push(`?search=${value}`, { scroll: false });
+    router.push(`?${q ? `q=${q}&` : ""}search=${value}`, { scroll: false });
   }, 300);
   async function updateNamaLainMuridAction(
     muridId: number,
     namaLainId: number
   ) {
-    await updateNamaLainMurid(muridId, namaLainId).then(() => {
+    await updateNamaLainMurid(muridId, namaLainId).then((result) => {
+      if (result) {
+        toast.success("Nama murid berhasil diubah");
+      } else {
+        toast.error("Nama murid gagal diubah");
+      }
+      router.push(`?${q ? `q=${q}&` : ""}search=`, { scroll: false });
       router.refresh();
+
+      setOpen(false);
     });
   }
+
+  const [open, setOpen] = useState(false);
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="link" onClick={() => debouncedSearch("")}>
-          {namaMurid ?? (
-            <span className="text-muted-foreground">Klik untuk edit nama</span>
-          )}
-        </Button>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger className="text-left hover:underline">
+        {namaMurid ?? (
+          <span className="text-muted-foreground">Klik untuk edit nama</span>
+        )}
       </PopoverTrigger>
-      <PopoverContent className="flex flex-col gap-2">
+      <PopoverContent
+        className="flex flex-col gap-2"
+        side="bottom"
+        align="start"
+      >
         <Input
           placeholder="Cari nama..."
           onChange={(e) => debouncedSearch(e.target.value)}
