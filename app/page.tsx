@@ -22,7 +22,7 @@ export default async function Home({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Nama Lain</TableHead>
+              <TableHead>Nama Quizziz</TableHead>
               <TableHead>Kelas</TableHead>
               <TableHead>Nama Asli Murid</TableHead>
             </TableRow>
