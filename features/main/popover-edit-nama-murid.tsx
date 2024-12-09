@@ -66,6 +66,10 @@ export function PopoverEditNamaMurid({
           placeholder="Cari nama..."
           onChange={(e) => debouncedSearch(e.target.value)}
         />
+        <p className="text-xs text-muted-foreground">
+          Setelah mengetik, tunggu sebentar untuk melihat hasilnya, jika tidak
+          ada hasilnya, maka nama murid tidak ditemukan
+        </p>
         <ScrollArea className="h-[200px]">
           {muridList.map((murid) => (
             <form
