@@ -1,10 +1,10 @@
 import "dotenv/config";
-import { serverConnection } from "./drizzle/server";
+import { serverConnection } from "../drizzle/server";
 import {
   DaftarNamaMuridTable,
   NamaLainTable,
   NilaiTable,
-} from "./drizzle/schema";
+} from "../drizzle/schema";
 import fs from "fs";
 import path from "path";
 import { parse } from "csv-parse/sync";

@@ -6,7 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { DaftarNamaMuridTable } from "@/lib/drizzle/schema";
+import { DaftarNamaMuridTable } from "@/drizzle/schema";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useRouter, useSearchParams } from "next/navigation";

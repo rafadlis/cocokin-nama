@@ -1,7 +1,7 @@
 "use server";
 
-import { DaftarNamaMuridTable } from "@/lib/drizzle/schema";
-import { serverConnection } from "@/lib/drizzle/server";
+import { DaftarNamaMuridTable } from "@/drizzle/schema";
+import { serverConnection } from "@/drizzle/server";
 import { eq } from "drizzle-orm";
 
 export async function updateNamaLainMurid(muridId: number, namaLainId: number) {

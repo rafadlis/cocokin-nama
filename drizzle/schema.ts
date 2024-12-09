@@ -11,13 +11,19 @@ export const DaftarNamaMuridTable = pgTable("daftar_nama_murid", {
   name: varchar("name", { length: 255 }).notNull(),
   kelas: varchar("kelas", { length: 255 }).notNull(),
   nomor_absen: varchar("nomor_absen", { length: 255 }).notNull(),
-  nama_lain_id: integer("nama_lain_id").references(() => NamaLainTable.id),
+  nama_lain_id: integer("nama_lain_id").references(() => NamaLainTable.id, {
+    onDelete: "set null",
+    onUpdate: "cascade",
+  }),
 });
 
 export const NilaiTable = pgTable("nilai", {
   id: serial("id").primaryKey(),
   benar: integer("benar").notNull(),
-  nama_lain_id: integer("nama_lain_id").references(() => NamaLainTable.id),
+  nama_lain_id: integer("nama_lain_id").references(() => NamaLainTable.id, {
+    onDelete: "cascade",
+    onUpdate: "cascade",
+  }),
 });
 
 export const NamaLainTableRelations = relations(NamaLainTable, ({ one }) => ({

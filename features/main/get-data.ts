@@ -1,7 +1,7 @@
 "use server";
 
-import { DaftarNamaMuridTable, NamaLainTable } from "@/lib/drizzle/schema";
-import { serverConnection } from "@/lib/drizzle/server";
+import { DaftarNamaMuridTable, NamaLainTable } from "@/drizzle/schema";
+import { serverConnection } from "@/drizzle/server";
 import { ilike, eq } from "drizzle-orm";
 import {
   unstable_cacheTag as cacheTag,
