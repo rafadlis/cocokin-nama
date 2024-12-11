@@ -6,7 +6,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { DaftarNamaMuridTable } from "@/drizzle/schema";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -14,13 +13,12 @@ import { useDebouncedCallback } from "use-debounce";
 import { updateNamaLainMurid } from "./edit-data";
 import { toast } from "sonner";
 import { useState } from "react";
-
+import { getDaftarNamaMuridBySearch } from "./get-data";
+import useSWR from "swr";
 export function PopoverEditNamaMurid({
-  muridList,
   namaLainId,
   namaMurid,
 }: {
-  muridList: (typeof DaftarNamaMuridTable.$inferSelect)[];
   namaLainId: number;
   namaMurid: string | null | undefined;
 }) {
@@ -28,10 +26,17 @@ export function PopoverEditNamaMurid({
   const searchParams = useSearchParams();
   const q = searchParams.get("q");
 
+  // fetching data
+  const [searchQuery, setSearchQuery] = useState(q || null);
+  const { data: muridList, isLoading } = useSWR(
+    searchQuery ? `?q=${searchQuery}&search=${searchQuery}` : null,
+    () => getDaftarNamaMuridBySearch(searchQuery)
+  );
+
   const router = useRouter();
   const debouncedSearch = useDebouncedCallback((value: string) => {
-    router.push(`?${q ? `q=${q}&` : ""}search=${value}`, { scroll: false });
-  }, 300);
+    setSearchQuery(value);
+  }, 600);
 
   async function updateNamaLainMuridAction(
     muridId: number,
@@ -71,21 +76,29 @@ export function PopoverEditNamaMurid({
           ada hasilnya, maka nama murid tidak ditemukan
         </p>
         <ScrollArea className="h-[200px]">
-          {muridList.map((murid) => (
-            <form
-              key={murid.id}
-              action={() => updateNamaLainMuridAction(murid.id, namaLainId)}
-              className="w-full"
-            >
-              <Button
-                type="submit"
-                variant="link"
-                className="px-0 line-clamp-1"
+          {isLoading ? (
+            <p className="text-muted-foreground">Mencari...</p>
+          ) : searchQuery == null ? null : muridList?.length ? (
+            muridList.map((murid) => (
+              <form
+                key={murid.id}
+                action={() => updateNamaLainMuridAction(murid.id, namaLainId)}
+                className="w-full"
               >
-                {murid.name}
-              </Button>
-            </form>
-          ))}
+                <Button
+                  type="submit"
+                  variant="link"
+                  className="px-0 line-clamp-1"
+                >
+                  {murid.name}
+                </Button>
+              </form>
+            ))
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              Tidak ada hasil untuk <code>{searchQuery}</code>
+            </p>
+          )}
         </ScrollArea>
       </PopoverContent>
     </Popover>
