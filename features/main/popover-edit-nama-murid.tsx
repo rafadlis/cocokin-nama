@@ -95,7 +95,7 @@ export function PopoverEditNamaMurid({
               </form>
             ))
           ) : (
-            <p className="text-xs text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               Tidak ada hasil untuk <code>{searchQuery}</code>
             </p>
           )}
