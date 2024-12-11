@@ -77,7 +77,7 @@ export function PopoverEditNamaMurid({
         </p>
         <ScrollArea className="h-[200px]">
           {isLoading ? (
-            <p className="text-muted-foreground">Memuat...</p>
+            <p className="text-muted-foreground">Mencari...</p>
           ) : searchQuery == null ? null : muridList?.length ? (
             muridList.map((murid) => (
               <form
@@ -95,7 +95,7 @@ export function PopoverEditNamaMurid({
               </form>
             ))
           ) : (
-            <p className="text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               Tidak ada hasil untuk <code>{searchQuery}</code>
             </p>
           )}
